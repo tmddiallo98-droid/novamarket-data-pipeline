@@ -1,0 +1,12 @@
+# --- Secrets : ne JAMAIS publier ---
+*credentials*.json
+*-key.json
+*key*.json
+sa-*.json
+.env
+# --- Python / Jupyter ---
+__pycache__/
+.ipynb_checkpoints/
+# --- Données réelles / générées ---
+data/raw/
+*.log
