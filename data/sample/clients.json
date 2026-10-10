@@ -1,0 +1,9 @@
+[
+  {"client_id": "K1", "nom": "Diallo",  "email": "a.diallo@mail.com",  "ville": "Paris"},
+  {"client_id": "K2", "nom": "Martin",  "email": " L.Martin@mail.com", "ville": "Lyon"},
+  {"client_id": "K3", "nom": "Nguyen",  "email": "t.nguyen@mail.com",  "ville": "Lille"},
+  {"client_id": "K4", "nom": "Bernard", "email": null,                 "ville": "Paris"},
+  {"client_id": "K5", "nom": "Petit",   "email": "m.petit@mail.com",   "ville": null},
+  {"client_id": "K6", "nom": "Moreau",  "email": "j.moreau@mail.com",  "ville": "Nantes"},
+  {"client_id": "K2", "nom": "Martin",  "email": "l.martin@mail.com",  "ville": "Lyon"}
+]
