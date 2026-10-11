@@ -48,3 +48,11 @@ bq query \
   ORDER BY total_bytes_billed DESC
   LIMIT 5
   "
+
+echo "=== Étape 6 : Afficher la localisation du bucket et la liste des objets de raw/ ==="
+
+echo "Localisation du Bucket"
+gcloud storage buckets describe gs://novamarket-510908-datalake | \
+grep -E 'location:|default_storage_class:|uniform_bucket_level_access:|public_access_prevention:|labels:|projet:'
+echo "Liste et taille des objets de raw"
+ gcloud storage ls -l gs://novamarket-510908-datalake/raw/**
