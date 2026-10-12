@@ -56,8 +56,10 @@ def controler_fichier(chemin, source):
     if len(df) == 0:
         problemes.append("fichier vide : aucune ligne de données")
 
-    # TODO 1 : ajouter à `problemes` la liste des colonnes de COLONNES_ATTENDUES[source]
-    #          absentes de df.columns (message du type "colonnes manquantes : [...]").
+    col_manquants = [i for i in  COLONNES_ATTENDUES[source] if i not in df.columns ]
+
+    if col_manquants:
+        problemes.append(f"colonnes manquantes : {col_manquants}")
 
     return problemes, len(df)
 
@@ -95,9 +97,12 @@ def main():
         sys.exit(1)
 
     cible = f"raw/{source}/date={jour}/{nom_fichier}"
-    # TODO 2 : appeler deposer(..., immuable=True) dans un try / except PreconditionFailed.
-    #          Si l'objet existe déjà : afficher un message clair (« raw est immuable, rien n'a été
-    #          écrasé ») puis sys.exit(1).
+
+    try:
+        deposer(client, chemin, cible, True)
+    except PreconditionFailed:
+        print("raw est immuable, rien n'a été écrasé »")
+        sys.exit(1)
 
     print(f"✅ ACCEPTÉ : {nb_lignes} lignes déposées dans gs://{BUCKET}/{cible}")
 
