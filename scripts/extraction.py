@@ -53,10 +53,9 @@ def lire_fichier(chemin):
     if extension == ".csv":
         return pd.read_csv(chemin, sep=";", dtype=str)
     if extension == ".json":
-        try:
-            return pd.read_json(chemin, dtype=False)
-        except:
-            return pd.read_json(chemin, dtype=False, lines=True)
+        return pd.read_json(chemin, dtype=False)
+    if extension == ".jsonl":
+        return pd.read_json(chemin, dtype=False, lines=True)
     
     raise ValueError(f"extension non prise en charge : {extension}")
 
@@ -134,7 +133,7 @@ def main():
     nom_parquet = os.path.splitext(nom_fichier)[0] + ".parquet"
     local_parquet = ecrire_parquet(chemin, nom_parquet)
     cible_processed = f"processed/{source}/date={jour}/{nom_parquet}"
-    deposer(client, local_parquet, cible_processed, False)
+    deposer(client, local_parquet, cible_processed, immuable=False)
     print(f"✅ CONVERTI : gs://{BUCKET}/{cible_processed}")
 
     
