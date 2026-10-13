@@ -133,11 +133,17 @@ def main():
     nom_parquet = os.path.splitext(nom_fichier)[0] + ".parquet"
     local_parquet = ecrire_parquet(chemin, nom_parquet)
     cible_processed = f"processed/{source}/date={jour}/{nom_parquet}"
+
+    # Partie C — Contrôle du Parquet avant le dépôt dans processed/
+    source_df = lire_fichier(chemin)
+    parquet_df = pd.read_parquet(local_parquet)
+    if len(parquet_df) != len(source_df) or list(parquet_df.columns) != list(source_df.columns):
+        print(f"❌ CONTRÔLE PARQUET ÉCHOUÉ : lignes {len(source_df)} → {len(parquet_df)} ; "
+              f"colonnes {list(source_df.columns)} → {list(parquet_df.columns)}")
+        sys.exit(1)
+    
     deposer(client, local_parquet, cible_processed, immuable=False)
     print(f"✅ CONVERTI : gs://{BUCKET}/{cible_processed}")
-
-    
-
 
 if __name__ == "__main__":
     main()
